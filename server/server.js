@@ -8,13 +8,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-mongoose.connect(
-  "mongodb+srv://omrichen70:yanisCh7052@guests.nakrebp.mongodb.net/?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+const uri = process.env.MONGODB_URI;
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 

@@ -10,6 +10,8 @@ const override = css`
   border-color: red;
 `;
 
+const url = process.env.BACKEND_URL;
+
 function App() {
   const [fullName, setFullName] = useState("");
   const [numberOfPeople, setNumberOfPeople] = useState("");
@@ -24,7 +26,7 @@ function App() {
 
     const payload = { fullName, numberOfPeople, needsRide };
 
-    const res = await axios.post("http://localhost:4000/rsvp", payload);
+    const res = await axios.post(url, payload);
 
     if (res.status === 200) {
       setShowThanks(true);
