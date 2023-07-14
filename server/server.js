@@ -12,6 +12,8 @@ const uri =
   process.env.MONGODB_URI ||
   "mongodb+srv://omrichen70:yanisCh7052@guests.nakrebp.mongodb.net/?retryWrites=true&w=majority";
 
+const port = process.env.PORT || 4000;
+
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -21,7 +23,7 @@ const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
-  console.log("Connected to MongoDB!");
+  System.Diagnostics.Trace.WriteLine("Connected to MongoDB!");
 });
 
 const guestSchema = new mongoose.Schema({
@@ -43,7 +45,7 @@ app.post("/rsvp", async (req, res) => {
   // use async/await to handle the promise returned by save()
   try {
     const savedGuest = await newGuest.save();
-    console.log("saved guest:", savedGuest);
+    System.Diagnostics.Trace.WriteLine("saved guest:", savedGuest);
     res.status(200).json(savedGuest);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -54,7 +56,6 @@ app.get("/health", (req, res) => {
   res.status(200).send("Server is running!");
 });
 
-const port = process.env.PORT || 4000;
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  System.Diagnostics.Trace.WriteLine(`Server is running on port ${port}`);
 });
