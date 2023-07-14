@@ -10,7 +10,13 @@ const override = css`
   border-color: red;
 `;
 
-const url = process.env.BACKEND_URL;
+let url;
+
+if (process.env.NODE_ENV === "development") {
+  url = "http://localhost:4000/rsvp";
+} else {
+  url = process.env.BACKEND_URL;
+}
 
 function App() {
   const [fullName, setFullName] = useState("");

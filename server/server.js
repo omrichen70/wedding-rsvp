@@ -41,13 +41,18 @@ app.post("/rsvp", async (req, res) => {
   // use async/await to handle the promise returned by save()
   try {
     const savedGuest = await newGuest.save();
-    console.log("saved");
-    res.json(savedGuest);
+    console.log("saved guest:", savedGuest);
+    res.status(200).json(savedGuest);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-app.listen(4000, () => {
-  console.log("Server is running on port 4000");
+app.get("/health", (req, res) => {
+  res.status(200).send("Server is running!");
+});
+
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
